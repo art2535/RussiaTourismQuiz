@@ -1,0 +1,509 @@
+﻿@page "{stationIndex:int}/{taskIndex:int?}"
+@model RussiaTourismQuiz.Pages.QuizModel
+@using System.Text.Json
+@{
+    ViewData["Title"] = Model.Station.Name;
+    var isEnglish = HttpContext.Session.GetString("Language") == "en";
+    // Десериализация SelectedAnswer для drag-and-drop
+    Dictionary<string, string> selectedMatches = null;
+    if (Model.Tasks.Type == "drag-and-drop" && !string.IsNullOrEmpty(Model.SelectedAnswer))
+    {
+        try
+        {
+            selectedMatches = JsonSerializer.Deserialize<Dictionary<string, string>>(Model.SelectedAnswer);
+        }
+        catch (Exception)
+        {
+            selectedMatches = new Dictionary<string, string>();
+        }
+    }
+    // Десериализация SelectedAnswer для multi-select
+    Dictionary<string, string> selectedMultiSelect = null;
+    if (Model.Tasks.Type == "multi-select" && !string.IsNullOrEmpty(Model.SelectedAnswer))
+    {
+        try
+        {
+            selectedMultiSelect = JsonSerializer.Deserialize<Dictionary<string, string>>(Model.SelectedAnswer);
+        }
+        catch (Exception)
+        {
+            selectedMultiSelect = new Dictionary<string, string>();
+        }
+    }
+    // Десериализация SelectedAnswer для true-false
+    List<string> selectedTrueFalse = null;
+    if (Model.Tasks.Type == "true-false" && !string.IsNullOrEmpty(Model.SelectedAnswer))
+    {
+        try
+        {
+            selectedTrueFalse = JsonSerializer.Deserialize<List<string>>(Model.SelectedAnswer);
+        }
+        catch (Exception)
+        {
+            selectedTrueFalse = new List<string>();
+        }
+    }
+    // Десериализация SelectedAnswer для crossword
+    Dictionary<int, string> selectedCrosswordAnswers = null;
+    if (Model.Tasks.Type == "crossword" && !string.IsNullOrEmpty(Model.SelectedAnswer))
+    {
+        try
+        {
+            selectedCrosswordAnswers = JsonSerializer.Deserialize<Dictionary<int, string>>(Model.SelectedAnswer);
+        }
+        catch (Exception)
+        {
+            selectedCrosswordAnswers = new Dictionary<int, string>();
+        }
+    }
+}
+
+<header class="bg-blue-600 text-white p-4">
+    <p class="text-xl text-center mt-2">@(isEnglish ? "Score" : "Очки"): @Model.Score</p>
+    <p class="text-xl text-center mt-2" id="session-timer">@(isEnglish ? "Time Remaining" : "Оставшееся время"): <span id="timer-display">Timer</span></p>
+</header>
+<nav class="bg-blue-800 text-white p-4">
+    <div class="flex space-x-4 justify-center items-center">
+        <ul class="flex space-x-4 items-center">
+            @foreach (var station in Model.Stations)
+            {
+                <li>
+                    <a asp-page="/Quiz" asp-route-stationIndex="@Model.Stations.IndexOf(station)"
+                       class="px-4 py-2 rounded @(Model.StationIndex == Model.Stations.IndexOf(station) ? "bg-blue-500" : "bg-blue-700") hover:bg-blue-600">
+                        @station.Name
+                    </a>
+                </li>
+            }
+            <li>
+                <form asp-page="/Index" method="get">
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                        @(isEnglish ? "Complete the quiz" : "Завершить викторину")
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+<main class="flex-grow p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4">@Model.Station.Name</h2>
+        <h3 class="text-xl font-medium mb-4">@Model.Tasks.Title</h3>
+
+        @if (!string.IsNullOrEmpty(Model.Tasks.Image))
+        {
+            <div class="w-fit mx-auto">
+                <img src="@Model.Tasks.Image" alt="@Model.Tasks.Title" class="max-w-full h-auto rounded-lg" />
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Tasks.Video))
+        {
+            <div class="w-fit mx-auto">
+                <video controls class="max-w-full h-auto rounded-lg">
+                    <source src="@Model.Tasks.Video" type="video/mp4" />
+                    @(isEnglish ? "Your browser does not support the video." : "Ваш браузер не поддерживает видео.")
+                </video>
+            </div>
+        }
+        <p class="text-lg font-medium">@Model.Tasks.Question</p>
+
+        @if (Model.Tasks.Type == "multiple-choice")
+        {
+            <form method="post" asp-page-handler="Answer">
+                <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                <div class="space-y-2">
+                    @foreach (var option in Model.Tasks.Options)
+                    {
+                        <button type="submit" name="answer" value="@option"
+                                class="w-full p-2 rounded text-left bg-gray-200 hover:bg-gray-300
+                                @(Model.Feedback != null
+                                    ? (option == Model.Tasks.CorrectAnswer
+                                        ? "bg-green-500 text-white"
+                                        : (Model.SelectedAnswer == option ? "bg-red-500 text-white" : ""))
+                                    : "")"
+                        @(Model.Feedback != null ? "disabled" : "")>
+                            @option
+                        </button>
+                    }
+                </div>
+            </form>
+        }
+        else if (Model.Tasks.Type == "text-input")
+        {
+            <form method="post" asp-page-handler="Answer">
+                <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                <div class="space-y-2">
+                    <input type="text" name="answer" value="@Model.SelectedAnswer" class="w-full p-2 border rounded"
+                           placeholder="@(isEnglish ? "Enter your answer" : "Введите ваш ответ")"
+                           disabled="@(Model.Feedback != null)" />
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            disabled="@(Model.Feedback != null)">
+                        @(isEnglish ? "Submit" : "Отправить")
+                    </button>
+                </div>
+            </form>
+        }
+        else if (Model.Tasks.Type == "drag-and-drop")
+        {
+            <form id="match-form" method="post" asp-page-handler="DragAndDrop">
+                <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                <div class="space-y-4">
+                    @foreach (var draggable in Model.Tasks.Matches.Keys)
+                    {
+                        <div class="flex items-center gap-4">
+                            <label class="w-1/3 font-medium">@draggable</label>
+                            <select name="answers[@draggable]" class="w-2/3 p-2 border rounded
+                                @(Model.Feedback != null && selectedMatches != null && selectedMatches.ContainsKey(draggable)
+                                    ? (selectedMatches[draggable] == Model.Tasks.Matches[draggable] ? "bg-green-100" : "bg-red-100")
+                                    : "")"
+                            @(Model.Feedback != null ? "disabled" : "")>
+                                <option value="">@(isEnglish ? "Select..." : "Выберите...")</option>
+                                @foreach (var target in Model.Tasks.Matches.Values.Distinct())
+                                {
+                                    <option value="@target" selected="@(selectedMatches != null && selectedMatches.ContainsKey(draggable) && selectedMatches[draggable] == target)">
+                                        @target
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    <button type="submit" id="check-match" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 @(Model.Feedback != null ? "bg-gray-400 pointer-events-none" : "")">
+                        @(isEnglish ? "Check" : "Проверить")
+                    </button>
+                    @if (Model.Feedback != null)
+                    {
+                        <p id="match-feedback" class="text-md @(Model.Feedback.StartsWith(isEnglish ? "Correct" : "Правильно") ? "text-green-600" : "text-red-600")">
+                            @Model.Feedback
+                        </p>
+                    }
+                </div>
+            </form>
+        }
+        else if (Model.Tasks.Type == "multi-select")
+        {
+            <form id="multi-select-form" method="post" asp-page-handler="DragAndDrop">
+                <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                <div class="space-y-4">
+                    @foreach (var item in Model.Tasks.Matches.Keys)
+                    {
+                        <div class="flex items-center gap-4">
+                            <label class="w-1/3 font-medium">@item</label>
+                            <select name="answers[@item]" class="w-2/3 p-2 border rounded
+                                @(Model.Feedback != null && selectedMultiSelect != null && selectedMultiSelect.ContainsKey(item)
+                                    ? (selectedMultiSelect[item] == Model.Tasks.Matches[item] ? "bg-green-100" : "bg-red-100")
+                                    : "")"
+                            @(Model.Feedback != null ? "disabled" : "")>
+                                <option value="">@(isEnglish ? "Select..." : "Выберите...")</option>
+                                @foreach (var option in Model.Tasks.Options)
+                                {
+                                    <option value="@option" selected="@(selectedMultiSelect != null && selectedMultiSelect.ContainsKey(item) && selectedMultiSelect[item] == option)">
+                                        @option
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    <button type="submit" id="check-multi-select" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 @(Model.Feedback != null ? "bg-gray-400 pointer-events-none" : "")">
+                        @(isEnglish ? "Check" : "Проверить")
+                    </button>
+                    @if (Model.Feedback != null)
+                    {
+                        <p id="multi-select-feedback" class="text-md @(Model.Feedback.StartsWith(isEnglish ? "Correct" : "Правильно") ? "text-green-600" : "text-red-600")">
+                            @Model.Feedback
+                        </p>
+                    }
+                </div>
+            </form>
+        }
+        else if (Model.Tasks.Type == "true-false")
+        {
+            <form id="true-false-form" method="post" asp-page-handler="TrueFalse">
+                <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                <div class="space-y-4">
+                    @for (int i = 0; i < Model.Tasks.TrueFalseStatements.Count; i++)
+                    {
+                        var isCorrect = Model.Feedback != null && selectedTrueFalse != null && i < selectedTrueFalse.Count
+                        ? (selectedTrueFalse[i].ToLower() == "true") == Model.Tasks.TrueFalseStatements[i].IsTrue
+                        : false;
+                        <div class="flex items-center gap-4">
+                            <label class="w-2/3 font-medium">@Model.Tasks.TrueFalseStatements[i].Statement</label>
+                            <div class="w-1/3 flex gap-2">
+                                <label class="@(Model.Feedback != null && isCorrect && selectedTrueFalse[i] == "True" ? "bg-green-100 p-1 rounded" : (Model.Feedback != null && selectedTrueFalse[i] == "True" ? "bg-red-100 p-1 rounded" : ""))">
+                                    <input type="radio" name="answers[@i]" value="True" required
+                                    @(Model.Feedback != null ? "disabled" : "")
+                                    @(selectedTrueFalse != null && i < selectedTrueFalse.Count && selectedTrueFalse[i] == "True" ? "checked" : "") />
+                                    @(isEnglish ? "True" : "Верно")
+                                </label>
+                                <label class="@(Model.Feedback != null && isCorrect && selectedTrueFalse[i] == "False" ? "bg-green-100 p-1 rounded" : (Model.Feedback != null && selectedTrueFalse[i] == "False" ? "bg-red-100 p-1 rounded" : ""))">
+                                    <input type="radio" name="answers[@i]" value="False" required
+                                    @(Model.Feedback != null ? "disabled" : "")
+                                    @(selectedTrueFalse != null && i < selectedTrueFalse.Count && selectedTrueFalse[i] == "False" ? "checked" : "") />
+                                    @(isEnglish ? "False" : "Неверно")
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    <button type="submit" id="check-true-false" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 @(Model.Feedback != null ? "bg-gray-400 pointer-events-none" : "")">
+                        @(isEnglish ? "Check" : "Проверить")
+                    </button>
+                    @if (Model.Feedback != null)
+                    {
+                        <p id="true-false-feedback" class="text-md @(Model.Feedback.StartsWith(isEnglish ? "Correct" : "Правильно") ? "text-green-600" : "text-red-600")">
+                            @Model.Feedback
+                        </p>
+                    }
+                </div>
+            </form>
+        }
+        @{
+            bool isCrossword = Model.Tasks.Type == "crossword";
+            bool hasCrosswordData = Model.Tasks.Crossword != null;
+            bool hasClues = hasCrosswordData && Model.Tasks.Crossword.Clues != null;
+            bool hasGridSize = hasCrosswordData && Model.Tasks.Crossword.GridSize != null;
+            bool canRenderCrossword = isCrossword && hasCrosswordData && hasClues && hasGridSize;
+        }
+        @if (canRenderCrossword)
+        {
+            <form id="crossword-form" method="post" asp-page-handler="Crossword">
+                <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                <div class="space-y-4">
+                    <div class="grid gap-1" style="grid-template-columns: repeat(@Model.Tasks.Crossword.GridSize.Cols, 40px);">
+                        @for (int row = 0; row < Model.Tasks.Crossword.GridSize.Rows; row++)
+                        {
+                            for (int col = 0; col < Model.Tasks.Crossword.GridSize.Cols; col++)
+                            {
+                                bool isCellOccupied = Model.Tasks.Crossword.Clues.Any(clue =>
+                                clue != null &&
+                                ((clue.Direction == "across" && clue.Row == row + 1 && col + 1 >= clue.Col && col + 1 < clue.Col + (clue.Answer?.Length ?? 0)) ||
+                                (clue.Direction == "down" && clue.Col == col + 1 && row + 1 >= clue.Row && row + 1 < clue.Row + (clue.Answer?.Length ?? 0))));
+                                bool hasNumber = Model.Tasks.Crossword.Clues.Any(clue => clue != null && clue.Row == row + 1 && clue.Col == col + 1);
+                                var clueNumber = Model.Tasks.Crossword.Clues.FirstOrDefault(clue => clue != null && clue.Row == row + 1 && clue.Col == col + 1)?.Number;
+                                <div class="relative w-10 h-10 border border-gray-300 flex items-center justify-center @(isCellOccupied ? "bg-white" : "bg-gray-200")">
+                                    @if (hasNumber && clueNumber.HasValue)
+                                    {
+                                        <span class="absolute top-0 left-1 text-xs font-bold">@clueNumber</span>
+                                    }
+                                    @if (isCellOccupied)
+                                    {
+                                        var cellIndex = row * Model.Tasks.Crossword.GridSize.Cols + col;
+                                        <input type="text" maxlength="1" name="crosswordAnswers[@cellIndex]"
+                                               class="w-full h-full text-center uppercase"
+                                               value="@(selectedCrosswordAnswers != null && selectedCrosswordAnswers.ContainsKey(cellIndex) ? selectedCrosswordAnswers[cellIndex] : "")"
+                                        @(Model.Feedback != null ? "disabled" : "") />
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="text-lg font-semibold">@(isEnglish ? "Clues" : "Подсказки"):</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <h5 class="font-medium">@(isEnglish ? "Across" : "По горизонтали"):</h5>
+                                @foreach (var clue in Model.Tasks.Crossword.Clues.Where(c => c?.Direction == "across"))
+                                {
+                                    if (clue != null)
+                                    {
+                                        <p>@clue.Number. @clue.Hint</p>
+                                    }
+                                }
+                            </div>
+                            <div>
+                                <h5 class="font-medium">@(isEnglish ? "Down" : "По вертикали"):</h5>
+                                @foreach (var clue in Model.Tasks.Crossword.Clues.Where(c => c?.Direction == "down"))
+                                {
+                                    if (clue != null)
+                                    {
+                                        <p>@clue.Number. @clue.Hint</p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="check-crossword" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 @(Model.Feedback != null ? "bg-gray-400 pointer-events-none" : "")">
+                        @(isEnglish ? "Check" : "Проверить")
+                    </button>
+                    @if (Model.Feedback != null)
+                    {
+                        <p id="crossword-feedback" class="text-md @(Model.Feedback.StartsWith(isEnglish ? "Correct" : "Правильно") ? "text-green-600" : "text-red-600")">
+                            @Model.Feedback
+                        </p>
+                    }
+                </div>
+            </form>
+        }
+        else if (Model.Tasks.Type == "crossword")
+        {
+            <p class="text-red-600">@(isEnglish ? "Error: The crossword puzzle data is unavailable." : "Ошибка: данные кроссворда недоступны.")</p>
+        }
+
+        @if (Model.Feedback != null && Model.Tasks.Type != "drag-and-drop" && Model.Tasks.Type != "multi-select" && Model.Tasks.Type != "true-false" && Model.Tasks.Type != "crossword")
+        {
+            <p class="text-md @(Model.Feedback.StartsWith(isEnglish ? "Correct" : "Правильно") ? "text-green-600" : "text-red-600")">
+                @Model.Feedback
+            </p>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Tasks.Explanation) && Model.Feedback != null)
+        {
+            <p class="text-md text-gray-700 mt-2">@Model.Tasks.Explanation</p>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Tasks.ExtraQuestion))
+        {
+            <div class="mt-6">
+                <p class="text-lg font-medium">@Model.Tasks.ExtraQuestion</p>
+                @if (Model.Tasks.ExtraOptions != null)
+                {
+                    <form method="post" asp-page-handler="ExtraAnswer">
+                        <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                        <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                        <div class="space-y-2">
+                            @foreach (var option in Model.Tasks.ExtraOptions)
+                            {
+                                <button type="submit" name="extraAnswer" value="@option"
+                                        class="w-full p-2 rounded text-left bg-gray-200 hover:bg-gray-300
+                                        @(Model.ExtraFeedback != null && Model.ExtraSelectedAnswer == option ? (option == Model.Tasks.ExtraCorrectAnswer ? "bg-green-500 text-white" : "bg-red-500 text-white") : "")"
+                                @(Model.ExtraFeedback != null ? "disabled" : "")>
+                                    @option
+                                </button>
+                            }
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-page-handler="ExtraAnswer">
+                        <input type="hidden" name="stationIndex" value="@Model.StationIndex" />
+                        <input type="hidden" name="taskIndex" value="@Model.TaskIndex" />
+                        <div class="space-y-2">
+                            <input type="text" name="extraAnswer" value="@Model.ExtraSelectedAnswer" class="w-full p-2 border rounded"
+                                   placeholder="@(isEnglish ? "Enter your answer" : "Введите ваш ответ")"
+                                   disabled="@(Model.ExtraFeedback != null)" />
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                    disabled="@(Model.ExtraFeedback != null)">
+                                @(isEnglish ? "Submit" : "Отправить")
+                            </button>
+                        </div>
+                    </form>
+                }
+                @if (Model.ExtraFeedback != null)
+                {
+                    <p class="text-md @(Model.ExtraFeedback.StartsWith(isEnglish ? "Correct" : "Правильно") ? "text-green-600" : "text-red-600")">
+                        @Model.ExtraFeedback
+                    </p>
+                }
+            </div>
+        }
+
+        <div class="flex justify-between mt-6">
+            <a asp-page="/Quiz" asp-route-stationIndex="@Model.PrevStationIndex" asp-route-taskIndex="@Model.PrevTaskIndex"
+               class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 @(Model.StationIndex == 0 && Model.TaskIndex == 0 ? "bg-gray-400 pointer-events-none" : "")">
+                @(isEnglish ? "Back" : "Назад")
+            </a>
+            @if (Model.IsLastTask)
+            {
+                <a asp-page="/Results" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+                    @(isEnglish ? "Finish" : "Завершить")
+                </a>
+            }
+            else
+            {
+                <a asp-page="/Quiz" asp-route-stationIndex="@Model.NextStationIndex" asp-route-taskIndex="@Model.NextTaskIndex"
+                   class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    @(isEnglish ? "Next" : "Далее")
+                </a>
+            }
+        </div>
+    </div>
+</main>
+
+<script>
+    const isEnglish = '@(HttpContext.Session.GetString("Language") == "en" ? "true" : "false")';
+    const sessionId = '@HttpContext.Session.GetString("SessionId")';
+    const isNewSession = sessionId !== sessionStorage.getItem('sessionId');
+    const defaultDurationSeconds = 45 * 60; // 45 минут по умолчанию
+    let timeRemaining = Math.floor(@Model.SessionTimeRemainingSeconds);
+
+    // Инициализация времени
+    if (isNewSession) {
+        sessionStorage.removeItem('timeRemaining');
+        sessionStorage.setItem('sessionId', sessionId);
+        if (isNaN(timeRemaining) || timeRemaining <= 0) {
+            timeRemaining = defaultDurationSeconds;
+            console.log('Using default time:', timeRemaining);
+        }
+    } else {
+        const storedTime = sessionStorage.getItem('timeRemaining');
+        if (storedTime !== null && !isNaN(storedTime)) {
+            const parsedTime = parseInt(storedTime, 10);
+            if (parsedTime > 0) {
+                timeRemaining = parsedTime;
+                console.log('Using stored time:', timeRemaining);
+            } else if (isNaN(timeRemaining) || timeRemaining <= 0) {
+                timeRemaining = defaultDurationSeconds;
+                console.log('Using default time (stored time invalid):', timeRemaining);
+            }
+        } else if (isNaN(timeRemaining) || timeRemaining <= 0) {
+            timeRemaining = defaultDurationSeconds;
+            console.log('Using default time (no stored time):', timeRemaining);
+        }
+    }
+
+    const timerDisplay = document.querySelector('#timer-display');
+    let isFormSubmitting = false;
+
+    // Отслеживание отправки форм
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', () => {
+            isFormSubmitting = true;
+            sessionStorage.setItem('timeRemaining', timeRemaining);
+        });
+    });
+
+    // Отслеживание навигации (Next/Prev)
+    document.querySelectorAll('a[href^="/Tasks"]').forEach(link => {
+        link.addEventListener('click', () => {
+            sessionStorage.setItem('timeRemaining', timeRemaining);
+            console.log('Saved time before navigation:', timeRemaining);
+        });
+    });
+
+    function updateTimer() {
+        if (!timerDisplay) {
+            console.error('Timer display element not found');
+            return;
+        }
+
+        if (timeRemaining <= 0 && !isFormSubmitting) {
+            timerDisplay.textContent = '00:00:00';
+            sessionStorage.removeItem('timeRemaining');
+            console.log('Time expired, redirecting to Results');
+            window.location.href = '/Results';
+            return;
+        }
+
+        const hours = Math.floor(timeRemaining / 3600);
+        const minutes = Math.floor((timeRemaining % 3600) / 60);
+        const seconds = timeRemaining % 60;
+        timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (timeRemaining > 0) {
+            timeRemaining--;
+            sessionStorage.setItem('timeRemaining', timeRemaining);
+        }
+    }
+
+    // Запуск таймера
+    if (timerDisplay) {
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    } else {
+        console.error('Timer display element not found');
+    }
+</script>

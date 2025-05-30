@@ -1,0 +1,26 @@
+﻿@page
+@model RussiaTourismQuiz.Pages.ResultsModel
+@{
+    ViewData["Title"] = HttpContext.Session.GetString("Language") == "en" ? "Results" : "Результаты";
+    var isEnglish = HttpContext.Session.GetString("Language") == "en";
+}
+
+<main class="flex-grow p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg text-center">
+        <h2 class="text-2xl font-semibold mb-4">
+            @(isEnglish ? "Congratulations!" : "Поздравляем!")
+        </h2>
+        <p class="text-xl mb-4">
+            @(isEnglish ? "You have completed the quiz!" : "Вы завершили викторину!")
+        </p>
+        <p class="text-lg mb-6">
+            @(isEnglish ? "Your final score:" : "Ваш итоговый результат:") @Model.Score @(isEnglish ? "points" : "баллов")
+        </p>
+        <p class="text-lg font-medium text-green-700 mb-6">@Model.Message</p>
+        <form method="post" asp-page-handler="Reset">
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                @(isEnglish ? "Start Again" : "Начать заново")
+            </button>
+        </form>
+    </div>
+</main>

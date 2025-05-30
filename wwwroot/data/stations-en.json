@@ -1,0 +1,555 @@
+﻿[
+	{
+		"name": "Natural Wonders of Asian Russia",
+		"tasks": [
+			{
+				"id": 1,
+				"title": "The Mystery of the Siberian Sea",
+				"type": "multiple-choice",
+				"question": "The lake in the photo is the deepest in the world, often called the 'Siberian Sea.' What is its name?",
+				"image": "https://avatars.mds.yandex.net/i?id=170704d30f3b413b1ea04135bc2f1ae0_sr-4011331-images-thumbs&n=13",
+				"options": [ "Taymyr", "Baikal", "Khanka", "Chany" ],
+				"correctAnswer": "Baikal",
+				"explanation": "Lake Baikal in Siberia is the world's deepest lake, reaching 1,642 meters, with its ice forming unique patterns."
+			},
+			{
+				"id": 2,
+				"title": "Code of the Fiery Mountain",
+				"type": "text-input",
+				"question": "The photo shows the highest active volcano in Eurasia, located in Kamchatka. Enter its name in all capital letters without hyphens to crack the code!",
+				"image": "https://sun9-6.userapi.com/s/v1/ig2/hAvoLF9WFFcOzEioJyNEGOE9njpzZU_P4N0l6QTf7pejrPd6RigCPuothkeiHGXsf77k34tYC3Q_5Zoj4Gu5Bopr.jpg?quality=95&as=32x21,48x32,72x48,108x72,160x107,240x160,360x240,480x320,540x360,640x427,720x480,1080x720,1280x854,1440x961,1700x1134&from=bu&u=7tNrrLhT3jb07gO1TPVSwoXqjTPufTbVQuqUCQIrLTo&cs=604x403",
+				"correctAnswer": "KLYUCHEVSKAYA SOPKA",
+				"explanation": "Klyuchevskaya Sopka is a majestic volcano in Kamchatka, a symbol of its wild nature."
+			},
+			{
+				"id": 3,
+				"title": "Crossword of Natural Wonders",
+				"type": "crossword",
+				"question": "Fill in the crossword to uncover the natural wonders of Asian Russia, guided by the clues provided.",
+				"crossword": {
+					"clues": [
+						{
+							"number": 1,
+							"direction": "across",
+							"row": 1,
+							"col": 3,
+							"hint": "The world’s deepest lake, a Siberian gem",
+							"answer": "BAIKAL"
+						},
+						{
+							"number": 2,
+							"direction": "down",
+							"row": 1,
+							"col": 6,
+							"hint": "Kamchatka’s tallest volcano, a fiery landmark (Sopka)",
+							"answer": "KLYUCHEVSKAYA"
+						},
+						{
+							"number": 3,
+							"direction": "down",
+							"row": 5,
+							"col": 2,
+							"hint": "Sacred mountain in Altai, capped with eternal snow",
+							"answer": "BELUKHA"
+						},
+						{
+							"number": 4,
+							"direction": "across",
+							"row": 11,
+							"col": 1,
+							"hint": "Peninsula famed for geysers and volcanoes",
+							"answer": "KAMCHATKA"
+						},
+						{
+							"number": 5,
+							"direction": "across",
+							"row": 7,
+							"col": 5,
+							"hint": "Unique rock pillars in Yakutia, a natural marvel",
+							"answer": "LENSKIY"
+						}
+					],
+					"gridSize": {
+						"rows": 13,
+						"cols": 11
+					}
+				},
+				"explanation": "This crossword highlights key natural landmarks of Asian Russia."
+			},
+			{
+				"id": 4,
+				"title": "The Riddle of the Geysers",
+				"type": "multiple-choice",
+				"question": "The reserve in the photo is home to Kamchatka’s boiling geysers. What is its name?",
+				"image": "https://avatars.dzeninfra.ru/get-zen_doc/3414159/pub_5edb72a7c67fe0355ae7038b_5edb787fb7b200124a0d731e/scale_1200",
+				"options": [ "Altai", "Kronotsky", "Baikal", "Sayano-Shushensky" ],
+				"correctAnswer": "Kronotsky",
+				"explanation": "Kronotsky Reserve in Kamchatka is renowned for its Valley of Geysers."
+			},
+			{
+				"id": 5,
+				"title": "Crossword of Natural Zones",
+				"type": "crossword",
+				"question": "Complete the crossword to explore the natural zones and landmarks of Asian Russia, using the clues provided.",
+				"crossword": {
+					"clues": [
+						{
+							"number": 1,
+							"direction": "across",
+							"row": 5,
+							"col": 2,
+							"hint": "Kamchatka reserve known for its geyser valley",
+							"answer": "KRONOTSKY"
+						},
+						{
+							"number": 2,
+							"direction": "down",
+							"row": 1,
+							"col": 5,
+							"hint": "River flowing into Lake Baikal",
+							"answer": "SELENGA"
+						},
+						{
+							"number": 3,
+							"direction": "across",
+							"row": 7,
+							"col": 7,
+							"hint": "Republic home to Belukha Mountain",
+							"answer": "ALTAI"
+						},
+						{
+							"number": 4,
+							"direction": "down",
+							"row": 3,
+							"col": 9,
+							"hint": "Republic with the Lena Pillars",
+							"answer": "YAKUTIA"
+						},
+						{
+							"number": 5,
+							"direction": "across",
+							"row": 9,
+							"col": 1,
+							"hint": "Peninsula of volcanoes and rugged beauty",
+							"answer": "KAMCHATKA"
+						}
+					],
+					"gridSize": {
+						"rows": 9,
+						"cols": 11
+					}
+				},
+				"explanation": "This crossword covers natural zones and iconic landmarks of Asian Russia."
+			},
+			{
+				"id": 6,
+				"title": "Journey to the Mountains",
+				"type": "multiple-choice",
+				"question": "Where should you go to see mountain landscapes like those in the photo?",
+				"image": "https://sun9-75.userapi.com/s/v1/ig2/UFCVLAtWicSNnEoTuXMbFcA8R9SumPFArlX9rYFJVrGMeCd9vePseND9RkMAENjqqkMp6UtpzCRsipYPqVcJt7mL.jpg?quality=95&as=32x19,48x29,72x43,108x65,160x96,240x143,360x215,480x287,540x323,640x382,720x430,1080x645,1195x714&from=bu&u=Z50ne-wiJ2tD56zK8gZCJ2-rJaYvdrLOTcZ7WBtm_4Q&cs=807x482",
+				"options": [ "Zabaykalsky Krai", "Altai", "Khakassia", "Tuva" ],
+				"correctAnswer": "Altai",
+				"explanation": "Altai is a prime destination for mountain landscapes and ecotourism."
+			},
+			{
+				"id": 7,
+				"title": "Peninsula Cipher",
+				"type": "text-input",
+				"question": "This peninsula is a land of volcanoes and geysers. Enter its name in all capital letters without hyphens to solve the cipher!",
+				"correctAnswer": "KAMCHATKA",
+				"explanation": "Kamchatka is a unique region where fire and water meet in nature."
+			},
+			{
+				"id": 8,
+				"title": "Regions of Natural Wonders",
+				"type": "multi-select",
+				"question": "Select the region for each natural landmark:",
+				"matches": {
+					"Baikal": "Irkutsk Oblast",
+					"Lena Pillars": "Yakutia",
+					"Klyuchevskaya Sopka": "Kamchatka Krai",
+					"Valley of Geysers": "Kamchatka Krai",
+					"Belukha Mountain": "Altai Republic"
+				},
+				"options": [ "Irkutsk Oblast", "Yakutia", "Kamchatka Krai", "Altai Republic", "Tuva", "Khakassia", "Krasnoyarsk Krai" ],
+				"explanation": "Correct regions: Baikal — Irkutsk Oblast and Buryatia, Lena Pillars — Yakutia, Klyuchevskaya Sopka and Valley of Geysers — Kamchatka Krai, Belukha Mountain — Altai Republic."
+			},
+			{
+				"id": 9,
+				"title": "Where Are These Treasures Located?",
+				"type": "multi-select",
+				"question": "Select the region for each natural landmark:",
+				"matches": {
+					"Taymyr Lake": "Krasnoyarsk Krai",
+					"Sayano-Shushensky Reserve": "Khakassia Republic",
+					"Krasnoyarsk Pillars": "Krasnoyarsk Krai",
+					"Ubsunur Hollow": "Tuva"
+				},
+				"options": [ "Irkutsk Oblast", "Yakutia", "Kamchatka Krai", "Altai Republic", "Tuva", "Khakassia", "Krasnoyarsk Krai" ],
+				"explanation": "Correct regions: Taymyr Lake — Krasnoyarsk Krai, Sayano-Shushensky Reserve — Khakassia Republic, Krasnoyarsk Pillars — Krasnoyarsk Krai, Ubsunur Hollow — Tuva."
+			}
+		]
+	},
+	{
+		"name": "Cities of Asian Russia",
+		"tasks": [
+			{
+				"id": 8,
+				"title": "Capital of Siberia",
+				"type": "multiple-choice",
+				"question": "The city in the photo is known as the cultural and scientific hub of Siberia. What is its name?",
+				"image": "https://sun9-13.userapi.com/s/v1/ig2/6oWq--izTBvW7XwKG3QSBIX2hGDTG8OpzayGKgBogkO_NoU9l9F0GQEmVKg6sQnOPNJuHQkzpXY4YuAPkX6ZC5je.jpg?quality=95&crop=0,0,1100,733&as=32x21,48x32,72x48,108x72,160x107,240x160,360x240,480x320,540x360,640x426,720x480,1080x720,1100x733&from=bu&u=gVb8D8AiEzABIBqhWy6Dj_DWrMhyIGE1JnfxBwzJqhc&cs=1080x720",
+				"options": [ "Irkutsk", "Novosibirsk", "Krasnoyarsk", "Omsk" ],
+				"correctAnswer": "Novosibirsk",
+				"explanation": "Novosibirsk is the largest city in Siberia, famed for its opera house and Akademgorodok scientific center."
+			},
+			{
+				"id": 9,
+				"title": "City by Baikal",
+				"type": "text-input",
+				"question": "This city is the gateway to Lake Baikal, a popular tourist destination. Enter its name in all capital letters without hyphens.",
+				"correctAnswer": "IRKUTSK",
+				"explanation": "Irkutsk is a historic city, the closest major center to Lake Baikal."
+			},
+			{
+				"id": 10,
+				"title": "Crossword of Cities",
+				"type": "crossword",
+				"question": "Fill in the crossword to discover major cities of Asian Russia, guided by the clues provided.",
+				"crossword": {
+					"clues": [
+						{
+							"number": 1,
+							"direction": "across",
+							"row": 6,
+							"col": 1,
+							"hint": "Cultural and scientific capital of Siberia",
+							"answer": "NOVOSIBIRSK"
+						},
+						{
+							"number": 2,
+							"direction": "down",
+							"row": 1,
+							"col": 10,
+							"hint": "City closest to Lake Baikal",
+							"answer": "IRKUTSK"
+						},
+						{
+							"number": 3,
+							"direction": "down",
+							"row": 3,
+							"col": 5,
+							"hint": "City on the Yenisei River, a Siberian hub",
+							"answer": "KRASNOYARSK"
+						},
+						{
+							"number": 4,
+							"direction": "down",
+							"row": 2,
+							"col": 8,
+							"hint": "Port city in the Far East",
+							"answer": "VLADIVOSTOK"
+						},
+						{
+							"number": 5,
+							"direction": "across",
+							"row": 10,
+							"col": 4,
+							"hint": "Capital of Yakutia, city of permafrost",
+							"answer": "YAKUTSK"
+						}
+					],
+					"gridSize": {
+						"rows": 13,
+						"cols": 11
+					}
+				},
+				"explanation": "This crossword is dedicated to major cities of Asian Russia."
+			},
+			{
+				"id": 11,
+				"title": "Bridge over the Amur",
+				"type": "multiple-choice",
+				"question": "In which Far Eastern city is the bridge over the Amur River, shown in the photo, located?",
+				"image": "https://s0.rbk.ru/v6_top_pics/media/img/1/81/755078059473811.jpg",
+				"options": [ "Vladivostok", "Khabarovsk", "Blagoveshchensk", "Komsomolsk-on-Amur" ],
+				"correctAnswer": "Khabarovsk",
+				"explanation": "Khabarovsk is renowned for its bridge over the Amur, a vital transportation hub in the Far East."
+			},
+			{
+				"id": 12,
+				"title": "Crossword of Landmarks",
+				"type": "crossword",
+				"question": "Complete the crossword to reveal iconic landmarks of Asian Russian cities, using the clues provided.",
+				"crossword": {
+					"clues": [
+						{
+							"number": 1,
+							"direction": "across",
+							"row": 8,
+							"col": 1,
+							"hint": "Famous bridge in Vladivostok, a city symbol",
+							"answer": "GOLDEN"
+						},
+						{
+							"number": 2,
+							"direction": "across",
+							"row": 5,
+							"col": 1,
+							"hint": "Chapel on a hill in Krasnoyarsk, a local landmark",
+							"answer": "PARASKEVA"
+						},
+						{
+							"number": 3,
+							"direction": "down",
+							"row": 5,
+							"col": 9,
+							"hint": "Cliff in Khabarovsk, named after a river",
+							"answer": "AMUR"
+						},
+						{
+							"number": 4,
+							"direction": "down",
+							"row": 4,
+							"col": 2,
+							"hint": "Museum in Yakutsk dedicated to ancient animals",
+							"answer": "MAMMOTH"
+						},
+						{
+							"number": 5,
+							"direction": "down",
+							"row": 1,
+							"col": 4,
+							"hint": "_____ and ballet theater in Novosibirsk",
+							"answer": "OPERA"
+						}
+					],
+					"gridSize": {
+						"rows": 10,
+						"cols": 9
+					}
+				},
+				"explanation": "This crossword features iconic landmarks of Asian Russian cities."
+			},
+			{
+				"id": 13,
+				"title": "City of Bridges",
+				"type": "multiple-choice",
+				"question": "The city in the photo is known for its bridges, including the Golden Bridge. What is its name?",
+				"image": "https://avatars.mds.yandex.net/i?id=2cfc52d027df9f00dfd6fc994ed7f994_l-4120750-images-thumbs&ref=rim&n=13&w=2048&h=1365",
+				"options": [ "Yakutsk", "Vladivostok", "Chita", "Ulan-Ude" ],
+				"correctAnswer": "Vladivostok",
+				"explanation": "Vladivostok is a port city with impressive bridges, such as the Golden Bridge."
+			},
+			{
+				"id": 14,
+				"title": "Capital of Yakutia",
+				"type": "text-input",
+				"question": "This city is the center of Yakutia, known for its museums and permafrost. Enter its name in all capital letters without hyphens.",
+				"correctAnswer": "YAKUTSK",
+				"explanation": "Yakutsk is the cultural and scientific center of Yakutia, located in a permafrost zone."
+			},
+			{
+				"id": 15,
+				"title": "Rivers of Cities",
+				"type": "multi-select",
+				"question": "Select the river on which each city is located:",
+				"matches": {
+					"Novosibirsk": "Ob",
+					"Krasnoyarsk": "Yenisei",
+					"Khabarovsk": "Amur",
+					"Irkutsk": "Angara",
+					"Vladivostok": "Golden Horn (bay)"
+				},
+				"options": [ "Ob", "Yenisei", "Amur", "Angara", "Golden Horn (bay)", "Lena", "Selenga" ],
+				"explanation": "Correct rivers: Novosibirsk — Ob, Krasnoyarsk — Yenisei, Khabarovsk — Amur, Irkutsk — Angara, Vladivostok — Golden Horn bay."
+			},
+			{
+				"id": 16,
+				"title": "Roles of Cities",
+				"type": "multi-select",
+				"question": "Select the primary characteristic of each city:",
+				"matches": {
+					"Novosibirsk": "Scientific center",
+					"Yakutsk": "Permafrost zone",
+					"Vladivostok": "Port city",
+					"Ulan-Ude": "Buddhism center"
+				},
+				"options": [ "Scientific center", "Permafrost zone", "Port city", "Buddhism center", "Tourist center", "Industrial center" ],
+				"explanation": "Correct characteristics: Novosibirsk — scientific center (Akademgorodok), Yakutsk — permafrost zone, Vladivostok — port city, Ulan-Ude — Buddhism center in Russia."
+			}
+		]
+	},
+	{
+		"name": "Monuments of Asian Russia",
+		"tasks": [
+			{
+				"id": 15,
+				"title": "Monument to Pioneers",
+				"type": "multiple-choice",
+				"question": "The monument in the photo is dedicated to the pioneers of Siberia and stands in central Irkutsk. What is its name?",
+				"image": "https://avatars.mds.yandex.net/i?id=d81ce136608719a27301400d519f5be9_l-4576159-images-thumbs&n=13",
+				"options": [ "Monument to Kolchak", "Monument to Lenin", "Monument to the City Founders", "Monument to Alexander III" ],
+				"correctAnswer": "Monument to the City Founders",
+				"explanation": "The Monument to the City Founders in Irkutsk honors the pioneers who explored Siberia."
+			},
+			{
+				"id": 16,
+				"title": "Code of the Bronze Tiger",
+				"type": "text-input",
+				"question": "This tiger monument is located in a Far Eastern city. Enter the city’s name in all capital letters without hyphens to crack the code!",
+				"image": "http://photos.wikimapia.org/p/00/02/39/30/96_big.jpg",
+				"correctAnswer": "VLADIVOSTOK",
+				"explanation": "The Amur tiger monument in Vladivostok symbolizes the strength and nature of the Far East."
+			},
+			{
+				"id": 17,
+				"title": "Crossword of Monuments",
+				"type": "crossword",
+				"question": "Fill in the crossword to uncover famous monuments of Asian Russia, guided by the clues provided.",
+				"crossword": {
+					"clues": [
+						{
+							"number": 1,
+							"direction": "down",
+							"row": 4,
+							"col": 2,
+							"hint": "Admiral honored with a monument in Irkutsk",
+							"answer": "KOLCHAK"
+						},
+						{
+							"number": 2,
+							"direction": "across",
+							"row": 3,
+							"col": 5,
+							"hint": "Explorer commemorated in Khabarovsk",
+							"answer": "KHABAROV"
+						},
+						{
+							"number": 3,
+							"direction": "across",
+							"row": 6,
+							"col": 1,
+							"hint": "Tsar immortalized in Novosibirsk",
+							"answer": "ALEKSANDER"
+						},
+						{
+							"number": 4,
+							"direction": "down",
+							"row": 5,
+							"col": 9,
+							"hint": "Giant head in Ulan-Ude, a leader’s monument",
+							"answer": "LENIN"
+						},
+						{
+							"number": 5,
+							"direction": "down",
+							"row": 1,
+							"col": 5,
+							"hint": "Heroic pilot with a monument in Novosibirsk",
+							"answer": "POKRYSHKIN"
+						}
+					],
+					"gridSize": {
+						"rows": 10,
+						"cols": 12
+					}
+				},
+				"explanation": "This crossword is dedicated to monuments of historical figures in Asian Russia."
+			},
+			{
+				"id": 18,
+				"title": "Crossword of Symbolic Monuments",
+				"type": "crossword",
+				"question": "Complete the crossword to reveal symbolic monuments of Asian Russia, using the clues provided.",
+				"crossword": {
+					"clues": [
+						{
+							"number": 1,
+							"direction": "down",
+							"row": 5,
+							"col": 14,
+							"hint": "Tiger, a symbol of Vladivostok, named after a river",
+							"answer": "AMUR"
+						},
+						{
+							"number": 2,
+							"direction": "down",
+							"row": 1,
+							"col": 3,
+							"hint": "Artist whose monument adorns Krasnoyarsk",
+							"answer": "POZDEEV"
+						},
+						{
+							"number": 3,
+							"direction": "across",
+							"row": 8,
+							"col": 8,
+							"hint": "City founders commemorated in Irkutsk",
+							"answer": "PIONEERS"
+						},
+						{
+							"number": 4,
+							"direction": "across",
+							"row": 6,
+							"col": 1,
+							"hint": "Tsar with a monument in Novosibirsk",
+							"answer": "ALEKSANDER"
+						},
+						{
+							"number": 5,
+							"direction": "down",
+							"row": 5,
+							"col": 9,
+							"hint": "Giant head in Ulan-Ude, an era’s symbol",
+							"answer": "LENIN"
+						}
+					],
+					"gridSize": {
+						"rows": 9,
+						"cols": 14
+					}
+				},
+				"explanation": "This crossword features symbolic monuments of Asian Russia."
+			},
+			{
+				"id": 19,
+				"title": "Monument in the Square",
+				"type": "multiple-choice",
+				"question": "The monument in the photo is dedicated to a tsar and stands in Novosibirsk. Who is it dedicated to?",
+				"image": "https://avatars.mds.yandex.net/get-altay/2408158/2a000001733c68ca17e8299096b03bf88a54/XXL",
+				"options": [ "Peter I", "Alexander III", "Nicholas II", "Ivan the Terrible" ],
+				"correctAnswer": "Alexander III",
+				"explanation": "The Monument to Alexander III in Novosibirsk honors the tsar linked to the Trans-Siberian Railway’s development."
+			},
+			{
+				"id": 20,
+				"title": "Cities of Monuments",
+				"type": "multi-select",
+				"question": "Select the city where each monument is located:",
+				"matches": {
+					"Monument to Alexander III": "Novosibirsk",
+					"Monument to Khabarov": "Khabarovsk",
+					"Monument to Lenin (giant head)": "Ulan-Ude",
+					"Monument to the Amur Tiger": "Vladivostok"
+				},
+				"options": [ "Novosibirsk", "Khabarovsk", "Ulan-Ude", "Vladivostok", "Irkutsk", "Krasnoyarsk", "Yakutsk" ],
+				"explanation": "Correct cities: Monument to Alexander III — Novosibirsk, Monument to Khabarov — Khabarovsk, Monument to Lenin (giant head) — Ulan-Ude, Monument to the Amur Tiger — Vladivostok."
+			},
+			{
+				"id": 21,
+				"title": "Who Are the Monuments Dedicated To?",
+				"type": "multi-select",
+				"question": "Select who each monument is dedicated to:",
+				"matches": {
+					"Monument in Irkutsk": "Pioneers",
+					"Monument in Novosibirsk": "Alexander III",
+					"Monument in Krasnoyarsk": "Pozdeev",
+					"Monument in Khabarovsk": "Khabarov"
+				},
+				"options": [ "Pioneers", "Alexander III", "Pozdeev", "Khabarov", "Lenin", "Pokryshkin", "Kolchak" ],
+				"explanation": "Correct dedications: Monument in Irkutsk — Pioneers, Monument in Novosibirsk — Alexander III, Monument in Krasnoyarsk — artist Pozdeev, Monument in Khabarovsk — explorer Khabarov."
+			}
+		]
+	}
+]

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tourist Russia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://sun9-39.userapi.com/s/v1/ig2/_ZLUMw_xktY0-SaB2bPKpCFbs5Tmrj2MtndjdXRXq6J5XgXKeUtZGBYTeEuYUuyp2mVHMYwfYcFRY92OzU2lECVB.jpg?quality=96&as=32x17,48x26,72x39,108x58,160x86,240x129,360x193,480x258,540x290,640x343,720x386,1080x580,1280x687,1440x773,1640x880&from=bu&u=pbMwNT8M-J1sVYmHZaa7NJSbS0G_SqZogMigJoJ5pU0&cs=807x433');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-100 via-white to-green-100 flex flex-col">
+    <header class="bg-blue-600 text-white p-4">
+        <h1 class="text-3xl font-bold text-center">Tourist Russia</h1>
+    </header>
+
+    @RenderBody()
+
+    <footer class="bg-blue-600 text-white p-4 text-center mt-auto">
+        <p>© 2025 Tourist Russia. Petrov Artem. C224</p>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@page
+@model RussiaTourismQuiz.Pages.IndexModel
+@{
+    ViewData["Title"] = HttpContext.Session.GetString("Language") == "en" ? "Russia Tourism Quiz" : "Викторина по туризму";
+    var isEnglish = HttpContext.Session.GetString("Language") == "en";
+}
+
+<nav class="bg-blue-800 text-white p-4">
+    <div class="flex justify-center items-center space-x-6">
+        <label for="language-select" class="text-white font-medium">
+            @(isEnglish ? "Select Language" : "Выберите язык")
+        </label>
+        <form method="post" asp-page-handler="ChangeLanguage">
+            <select id="language-select" name="language" onchange="this.form.submit()"
+                    class="bg-blue-700 text-white p-2 rounded hover:bg-blue-600">
+                <option value="ru" selected="@(isEnglish ? false : true)">Русский</option>
+                <option value="en" selected="@(isEnglish ? true : false)">English</option>
+            </select>
+        </form>
+    </div>
+</nav>
+<main class="flex-grow p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg text-center">
+        <h1 class="text-3xl font-semibold mb-4">
+            @(isEnglish ? "Welcome to the Russia Tourism Quiz!" : "Добро пожаловать в викторину по туризму России!")
+        </h1>
+        <p class="text-lg mb-6">
+            @(isEnglish ? "Test your knowledge about Russian culture and tourism." : "Проверьте свои знания о культуре и туризме России!")
+        </p>
+        <form method="post" asp-page-handler="StartQuiz">
+            <input type="hidden" name="language" value="@(isEnglish ? "en" : "ru")" />
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                @(isEnglish ? "Start Quiz" : "Начать задания")
+            </button>
+        </form>
+    </div>
+</main>
