@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace RussiaTourismQuiz
 {
@@ -33,15 +34,23 @@ namespace RussiaTourismQuiz
             app.UseSession(); // ¬ключение middleware сессий
             app.MapRazorPages();
 
-            // ƒобавление кода дл€ автоматического открыти€ браузера
+            // ƒобавление кода дл€ автоматического открыти€ браузера (только на Windows, вне Docker)
             var url = "http://localhost:5000";
-            Process.Start(new ProcessStartInfo
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !IsRunningInDocker())
             {
-                FileName = url,
-                UseShellExecute = true
-            });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
 
             app.Run();
+        }
+
+        private static bool IsRunningInDocker()
+        {
+            return File.Exists("/.dockerenv") || Directory.Exists("/.dockerinit");
         }
     }
 }
